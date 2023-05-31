@@ -13,7 +13,13 @@ multiply = function multiply(number1, number2){
 };
 
 divide = function divide(number1, number2){
-    return number1 / number2;
+    if(number2 == 0){
+        alert("No ! Bad User ! Stop this right now ! pshht pshht è_é");
+        clearScreen();
+        return 0;
+        
+    }
+    else return number1 / number2;
 };
 
 let constructingNumber1 = "";
@@ -124,4 +130,5 @@ document.addEventListener("click", (e)=>{
     }
     document.getElementById("miniScreen").value = displayMiniScreen;
     document.getElementById("screen").value = display;
+    console.log(displayMiniScreen);
 });

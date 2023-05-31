@@ -19,6 +19,7 @@ html {
 #screens{
     display: flex;
     flex-direction: row;
+    max-width: 25vw;
 }
 #screen, button, #miniScreen{
     height:3vw;
@@ -35,13 +36,16 @@ html {
 }
 
 #screen{
-    margin-left: 0.5vw;
-    max-width: 16vw;
+    flex-grow: 4;
+    flex-shrink: 1;
+    max-width: 11vw;
 }
 
 #miniScreen{
-    margin-right: 0;
-    max-width: 5.5vw;
+    flex-grow: 1;
+    flex-shrink: 1;
+    max-width: 5vw
+
 }
 
 button{

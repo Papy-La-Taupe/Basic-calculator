@@ -16,9 +16,12 @@ html {
     
 }
 
-#screen, button{
+#screens{
+    display: flex;
+    flex-direction: row;
+}
+#screen, button, #miniScreen{
     height:3vw;
-    width:18vw;
     margin: 1vw;
     border-radius: 10px;
     border: 2px solid red;   
@@ -29,6 +32,16 @@ html {
     display: flex;
     flex-direction: row;
     
+}
+
+#screen{
+    margin-left: 0.5vw;
+    max-width: 16vw;
+}
+
+#miniScreen{
+    margin-right: 0;
+    max-width: 5.5vw;
 }
 
 button{

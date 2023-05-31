@@ -19,10 +19,9 @@ divide = function divide(number1, number2){
 let constructingNumber1 = "";
 let constructingNumber2 = "";
 let preOperator = 1;
-let storage = 0;
+let toClear = 0;
 let display = 0;
 let displayMiniScreen = 0;
-let longInstruction = ""; //Think more about how I will use it (as a storage of all the calc, to simplify everything in the end)
 let number1 = "";
 let number2 = "";
 let operation = 0;
@@ -33,7 +32,16 @@ function operate(number1, operator, number2){
     else if(operator == "substract"){return substract(number1,number2);}
     else if(operator == "multiply"){return multiply(number1,number2);}
     else if(operator == "divide"){return divide(number1,number2);};
-}
+};
+
+function clearScreen(){
+    display = 0;
+    displayMiniScreen = 0;
+    preOperator = 1;
+    constructingNumber1 = "";
+    constructingNumber2 = "";
+    operation = 0;
+};
 
     //create the interactive interface
 
@@ -44,14 +52,18 @@ document.addEventListener("click", (e)=>{
     console.log(e.target.id);
     if(parseInt(e.target.id) >=0 && parseInt(e.target.id) <=9){
         if(preOperator == 1){
+            
             if(constructingNumber1 == ""){
+                clearScreen();
                 constructingNumber1 = e.target.id;
                 console.log(constructingNumber1, number1);
                 displayMiniScreen = constructingNumber1;
+                display = constructingNumber1;
             } else {
                 constructingNumber1 += e.target.id;
                 console.log(constructingNumber1, number1);
                 displayMiniScreen = constructingNumber1;
+                display += e.target.id;
             };
         }
         else if(preOperator == 0){
@@ -59,10 +71,12 @@ document.addEventListener("click", (e)=>{
                 constructingNumber2 = e.target.id;
                 console.log(constructingNumber2);
                 displayMiniScreen = constructingNumber2;
+                display += e.target.id;
             } else {
                 constructingNumber2 += e.target.id;
                 console.log(constructingNumber2);
                 displayMiniScreen = constructingNumber2;
+                display += e.target.id
             };
         }
     }
@@ -73,6 +87,7 @@ document.addEventListener("click", (e)=>{
             preOperator = 0;
             console.log(e);
             displayMiniScreen = e.target.innerHTML;
+            display+= displayMiniScreen;
             operation = 1;
         }
         else if(operation == 1){
@@ -87,6 +102,7 @@ document.addEventListener("click", (e)=>{
             constructingNumber1 = result;
             console.log(constructingNumber1);
             displayMiniScreen = e.target.innerHTML;
+            display += displayMiniScreen;
             number1 = "";
             number2 = "";
         }
@@ -100,15 +116,12 @@ document.addEventListener("click", (e)=>{
         constructingNumber2 = "";
         number1 = "";
         number2 = "";
+        toClear = 1;
         displayMiniScreen = result;
     }
     else if(e.target.id == "clear"){
-        display = 0;
-        displayMiniScreen = 0;
-        preOperator = 1;
-        constructingNumber1 = "";
-        constructingNumber2 = "";
-        operation = 0;
+        clearScreen();
     }
     document.getElementById("miniScreen").value = displayMiniScreen;
+    document.getElementById("screen").value = display;
 });

@@ -27,6 +27,11 @@ function prioritize(){
         if(priorOperator == "add" || priorOperator == "substract"){
             return display = `(${display})`;
         };
+    }
+    else if(operator == "*" || operator == "/"){
+        if(priorOperator == "+" || priorOperator == "-"){
+            return display = `(${display})`;
+        };
     };
 };
 
@@ -43,14 +48,14 @@ let number2 = "";
 let operation = 0;
 let operator;
 let priorOperator;
-let power =0;
+let power = 0;
 
 
 function operate(number1, operator, number2){
-    if(operator == "add"){return add(number1,number2);}
-    else if(operator == "substract"){return substract(number1,number2);}
-    else if(operator == "multiply"){return multiply(number1,number2);}
-    else if(operator == "divide"){return divide(number1,number2);};
+    if(operator == "add" || operator == "+"){return add(number1,number2);}
+    else if(operator == "substract" || operator == "-"){return substract(number1,number2);}
+    else if(operator == "multiply" || operator == "*"){return multiply(number1,number2);}
+    else if(operator == "divide" || operator == "/"){return divide(number1,number2);};
 };
 
 function clearScreen(){
@@ -62,7 +67,177 @@ function clearScreen(){
     operation = 0;
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //create the interactive interface
+document.addEventListener("keydown", (e)=>{
+    console.log(e)
+    e.preventDefault();
+    
+    console.log(power);
+    if(power == 1){
+        if(parseInt(e.key) >=0 && parseInt(e.key) <=9 || e.key == "."){
+            if(preOperator == 1){
+                
+                if(constructingNumber1 == ""){
+                    clearScreen();
+                    constructingNumber1 = e.key;
+                    displayMiniScreen = constructingNumber1;
+                    display = constructingNumber1;
+                } else {
+                    constructingNumber1 += e.key;
+                    displayMiniScreen = constructingNumber1;
+                    display += e.key;
+                };
+            }
+            else if(preOperator == 0){
+                if(constructingNumber2 == ""){
+                    constructingNumber2 = e.key;
+                    displayMiniScreen = constructingNumber2;
+                    display += e.key;
+                } else {
+                    constructingNumber2 += e.key;
+                    displayMiniScreen = constructingNumber2;
+                    display += e.key;
+                };
+            }
+        }
+        else if(e.key == "+" || e.key == "-" || e.key == "*" || e.key == "/"){
+            console.log(e.key);
+            
+            if(display.charAt(display.length -1) == "+" || display.charAt(display.length -1) == "-" || display.charAt(display.length -1) == "*" || display.charAt(display.length -1) == "/"){
+                alert("no, sorry, this won't work, you can't have two operators next to each other :(");
+            }
+            else{
+                if(operation == 0){
+                    operator = e.key;
+                    console.log(operator);
+                    preOperator = 0;
+                    displayMiniScreen = e.key;
+                    display+= displayMiniScreen;
+                    
+                    operation = 1;
+                }
+                else if(operation == 1){
+                    priorOperator = operator;
+                    console.log(constructingNumber1, constructingNumber2, operator, priorOperator)
+                    number1 = parseFloat(constructingNumber1);
+                    number2 = parseFloat(constructingNumber2);
+                    let result = operate(number1, operator, number2);
+                    operator = e.key;
+                    constructingNumber2 = "";
+                    constructingNumber1 = result;
+                    displayMiniScreen = e.key;
+                    prioritize();
+                    display += displayMiniScreen;
+                    displayMiniScreen = result + displayMiniScreen;
+                    number1 = "";
+                    number2 = "";
+                };
+            };
+        }
+        else if(e.key == "Enter"){
+            number1 = parseFloat(constructingNumber1);
+            number2 = parseFloat(constructingNumber2);
+            let result = operate(number1, operator, number2);
+            preOperator = 1;
+            constructingNumber1 = "";
+            constructingNumber2 = "";
+            number1 = "";
+            number2 = "";
+            displayMiniScreen = result.toFixed(3);        
+        }
+    
+        else if(e.key == "c"){
+            clearScreen();
+        }
+        else if(e.key == "Backspace"){
+            if(parseInt(display.charAt(display.length -1)) >=0 && parseInt(display.charAt(display.length -1)) <=9 || display.charAt(display.length -1) == "."){
+                if (preOperator == 1){constructingNumber1 = constructingNumber1.slice(0, -1); display = display.slice(0, -1)}
+                else if (preOperator == 0){constructingNumber2 = constructingNumber2.slice(0, -1); display = display.slice(0, -1)};
+            }
+            else if(display.charAt(display.length -1) == "+" || display.charAt(display.length -1) == "-" || display.charAt(display.length -1) == "*" || display.charAt(display.length -1) == "/"){
+                alert("Come on now, dont be greedy, just start again ;)");
+                clearScreen();
+            };
+        }
+        document.getElementById("miniScreen").value = displayMiniScreen;
+        document.getElementById("screen").value = display;
+        console.log(displayMiniScreen);  
+    };
+        
+    if(e.code == "KeyY"){
+        if(power == 0){
+            document.getElementById("screen").value = display; 
+            document.getElementById("miniScreen").value = displayMiniScreen;
+            power = 1;
+        };
+        
+    }
+    else if (e.code == "KeyN"){
+        if(power == 1){
+            document.getElementById("screen").value = "...";
+            document.getElementById("miniScreen").value = "off";
+            power = 0;
+        };
+        
+    };
+    console.log(power);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 document.addEventListener("click", (e)=>{
     console.log(e.target.id);
@@ -164,5 +339,5 @@ document.addEventListener("click", (e)=>{
             document.getElementById("miniScreen").value = "off";
             power = 0;
         };
-    }
+    };
 });

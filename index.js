@@ -122,6 +122,7 @@ document.addEventListener("click", (e)=>{
             displayMiniScreen = e.target.innerHTML;
             prioritize();
             display += displayMiniScreen;
+            displayMiniScreen = result + displayMiniScreen;
             number1 = "";
             number2 = "";
         }

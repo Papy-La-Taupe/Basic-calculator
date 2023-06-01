@@ -33,7 +33,6 @@ function prioritize(){
 let constructingNumber1 = "";
 let constructingNumber2 = "";
 let preOperator = 1;
-let toClear = 0;
 let display = 0;
 let displayMiniScreen = 0;
 let number1 = "";
@@ -41,6 +40,7 @@ let number2 = "";
 let operation = 0;
 let operator;
 let priorOperator;
+
 
 function operate(number1, operator, number2){
     if(operator == "add"){return add(number1,number2);}
@@ -103,11 +103,12 @@ document.addEventListener("click", (e)=>{
             console.log(e);
             displayMiniScreen = e.target.innerHTML;
             display+= displayMiniScreen;
+            eraserControl = 1;
             operation = 1;
         }
         else if(operation == 1){
             priorOperator = operator;
-            
+            eraserControl = 0;
             number1 = parseFloat(constructingNumber1);
             console.log(number1);
             number2 = parseFloat(constructingNumber2);
@@ -134,12 +135,21 @@ document.addEventListener("click", (e)=>{
         constructingNumber2 = "";
         number1 = "";
         number2 = "";
-        toClear = 1;
-        displayMiniScreen = result.toFixed(3);
+        displayMiniScreen = result.toFixed(3);        
     }
     else if(e.target.id == "clear"){
         clearScreen();
     }
+    else if(e.target.id == "erase"){
+        if(parseInt(display.charAt(display.length -1)) >=0 && parseInt(display.charAt(display.length -1)) <=9 || display.charAt(display.length -1) == "."){
+            if (preOperator == 1){constructingNumber1 = constructingNumber1.slice(0, -1); display = display.slice(0, -1)}
+            else if (preOperator == 0){constructingNumber2 = constructingNumber2.slice(0, -1); display = display.slice(0, -1)};
+        }
+        else if(display.charAt(display.length -1) == "+" || display.charAt(display.length -1) == "-" || display.charAt(display.length -1) == "*" || display.charAt(display.length -1) == "/"){
+            alert("Come on now, dont be greedy, just start again ;)");
+            clearScreen();
+        };
+    };
     document.getElementById("miniScreen").value = displayMiniScreen;
     document.getElementById("screen").value = display;
     console.log(displayMiniScreen);

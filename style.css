@@ -57,5 +57,10 @@ button{
     width: 8vw;
 }
 
+#power{
+    border-radius: 1.5vw;
+    background-color: black;
+    color: yellow;
+}
 
 

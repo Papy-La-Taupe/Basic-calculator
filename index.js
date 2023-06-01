@@ -65,7 +65,7 @@ document.getElementById("miniScreen").value = displayMiniScreen;
 
 document.addEventListener("click", (e)=>{
     console.log(e.target.id);
-    if(parseInt(e.target.id) >=0 && parseInt(e.target.id) <=9){
+    if(parseInt(e.target.id) >=0 && parseInt(e.target.id) <=9 || e.target.id == "."){
         if(preOperator == 1){
             
             if(constructingNumber1 == ""){
@@ -135,7 +135,7 @@ document.addEventListener("click", (e)=>{
         number1 = "";
         number2 = "";
         toClear = 1;
-        displayMiniScreen = result;
+        displayMiniScreen = result.toFixed(3);
     }
     else if(e.target.id == "clear"){
         clearScreen();

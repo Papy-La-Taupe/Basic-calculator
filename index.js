@@ -22,6 +22,14 @@ divide = function divide(number1, number2){
     else return number1 / number2;
 };
 
+function prioritize(){
+    if(operator == "multiply" || operator == "divide"){
+        if(priorOperator == "add" || priorOperator == "substract"){
+            return display = `(${display})`;
+        };
+    };
+};
+
 let constructingNumber1 = "";
 let constructingNumber2 = "";
 let preOperator = 1;
@@ -32,6 +40,7 @@ let number1 = "";
 let number2 = "";
 let operation = 0;
 let operator;
+let priorOperator;
 
 function operate(number1, operator, number2){
     if(operator == "add"){return add(number1,number2);}
@@ -97,6 +106,8 @@ document.addEventListener("click", (e)=>{
             operation = 1;
         }
         else if(operation == 1){
+            priorOperator = operator;
+            
             number1 = parseFloat(constructingNumber1);
             console.log(number1);
             number2 = parseFloat(constructingNumber2);
@@ -108,6 +119,7 @@ document.addEventListener("click", (e)=>{
             constructingNumber1 = result;
             console.log(constructingNumber1);
             displayMiniScreen = e.target.innerHTML;
+            prioritize();
             display += displayMiniScreen;
             number1 = "";
             number2 = "";

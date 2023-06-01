@@ -10,7 +10,7 @@ html {
 }
 
 #calculatorBody{
-    height:25vw;
+    height:30vw;
     width: 20vw;
     background-color: black;
     
@@ -51,6 +51,10 @@ html {
 button{
     width: 3vw;
     background-color: yellow;   
+}
+
+#enter{
+    width: 8vw;
 }
 
 

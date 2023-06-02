@@ -67,35 +67,6 @@ function clearScreen(){
     operation = 0;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //create the interactive interface
 document.addEventListener("keydown", (e)=>{
     console.log(e)
@@ -164,15 +135,19 @@ document.addEventListener("keydown", (e)=>{
             };
         }
         else if(e.key == "Enter"){
-            number1 = parseFloat(constructingNumber1);
-            number2 = parseFloat(constructingNumber2);
-            let result = operate(number1, operator, number2);
-            preOperator = 1;
-            constructingNumber1 = "";
-            constructingNumber2 = "";
-            number1 = "";
-            number2 = "";
-            displayMiniScreen = result.toFixed(3);        
+            if(constructingNumber1 != "" && constructingNumber2 != ""){
+                number1 = parseFloat(constructingNumber1);
+                number2 = parseFloat(constructingNumber2);
+                let result = operate(number1, operator, number2);
+                preOperator = 1;
+                constructingNumber1 = "";
+                constructingNumber2 = "";
+                number1 = "";
+                number2 = "";
+                displayMiniScreen = result.toFixed(3); 
+            }
+            else{alert("Don't you need something to work on first ? o.O")};
+                   
         }
     
         else if(e.key == "c"){
@@ -300,17 +275,26 @@ document.addEventListener("click", (e)=>{
             };
         }
         else if(e.target.id == "enter"){
-            number1 = parseFloat(constructingNumber1);
-            number2 = parseFloat(constructingNumber2);
-            let result = operate(number1, operator, number2);
-            preOperator = 1;
-            constructingNumber1 = "";
-            constructingNumber2 = "";
-            number1 = "";
-            number2 = "";
-            displayMiniScreen = result.toFixed(3);        
+            if(constructingNumber1 != "" && constructingNumber2 != ""){
+                number1 = parseFloat(constructingNumber1);
+                number2 = parseFloat(constructingNumber2);
+                let result = operate(number1, operator, number2);
+                preOperator = 1;
+                constructingNumber1 = "";
+                constructingNumber2 = "";
+                number1 = "";
+                number2 = "";
+                displayMiniScreen = result.toFixed(3);  
+            }
+            else{alert("Don't you need something to work on first ? o.O")};
         }
-    
+
+
+
+
+
+
+
         else if(e.target.id == "clear"){
             clearScreen();
         }
